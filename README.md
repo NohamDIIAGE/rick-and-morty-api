@@ -1,22 +1,22 @@
-# Structure du Projet
+# Project Structure
 
-Le projet est organisé autour de Kotlin Multiplatform et suit les principes de la Clean Architecture combinés à une approche MVI.
+The project is organised around Kotlin Multiplatform and follows the principles of Clean Architecture combined with an MVI approach.
 
-## Répartition des sources
+## Distribution of sources
 
-- **androidMain** : Code spécifique à Android (implémentations, ressources Android).
-- **desktopMain** : Code spécifique à Desktop.
-- **commonMain** : Code partagé entre toutes les plateformes.
-  - **data** : Gère l’accès aux données (API via Ktor, cache, Room, DataStore, etc.).
-  - **domain** : Contient les entités métiers et les interfaces des repositories.
-  - **ui** : Interface utilisateur avec Jetpack Compose, ViewModels et la navigation, utilisant le pattern MVI.
+- AndroidMain**: Android-specific code (implementations, Android resources).
+- desktopMain**: Desktop-specific code.
+- commonMain**: Code shared between all platforms.
+  - data**: Manages data access (API via Ktor, cache, Room, DataStore, etc.).
+  - domain**: Contains the business entities and repository interfaces.
+  - ui**: User interface with Jetpack Compose, ViewModels and navigation, using the MVI pattern.
 
-## Approche MVI
+## MVI approach
 
-Le flux MVI se structure ainsi :
-- L'utilisateur déclenche une **action**.
-- Le **ViewModel** capte l’action et met à jour le **state**.
-- La **view** observe le state et se met à jour en conséquence.
+The MVI flow is structured as follows:
+- The user triggers an **action**.
+- The **ViewModel** captures the action and updates the **state**.
+- The **view** observes the state and updates itself accordingly.
 
-Cela permet un flux de données unidirectionnel, facilitant la gestion et le test de l’interface.
+This provides a unidirectional data flow, making it easier to manage and test the interface.
 
