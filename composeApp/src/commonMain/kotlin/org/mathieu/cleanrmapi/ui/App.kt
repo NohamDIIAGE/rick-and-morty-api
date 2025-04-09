@@ -9,6 +9,7 @@ import org.mathieu.cleanrmapi.ui.core.composable
 import org.mathieu.cleanrmapi.ui.screens.characterdetails.CharacterDetailsScreen
 import org.mathieu.cleanrmapi.ui.screens.characters.CharactersScreen
 import org.mathieu.cleanrmapi.ui.screens.episodedetails.EpisodeDetailsScreen
+import org.mathieu.cleanrmapi.ui.screens.locationdetails.LocationDetailsScreen
 
 @Composable
 fun App() {
@@ -50,6 +51,18 @@ private fun MainContent() {
 
         }
 
+        composable(
+            destination = Destination.LocationDetails(),
+            deepLinks = listOf()
+        ) { backStackEntry ->
+
+            val locationId = backStackEntry.arguments?.getInt("locationId") ?: -1
+
+            LocationDetailsScreen(
+                navController = navController,
+                id = locationId
+            )
+        }
     }
 
 }

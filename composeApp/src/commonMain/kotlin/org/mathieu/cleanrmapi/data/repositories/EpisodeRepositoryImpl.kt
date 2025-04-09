@@ -3,7 +3,7 @@ package org.mathieu.cleanrmapi.data.repositories
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.mathieu.cleanrmapi.common.toList
-import org.mathieu.cleanrmapi.data.local.EpisodeDAO
+import org.mathieu.cleanrmapi.data.local.dao.EpisodeDAO
 import org.mathieu.cleanrmapi.data.local.objects.EpisodeObject
 import org.mathieu.cleanrmapi.data.local.objects.toDBObject
 import org.mathieu.cleanrmapi.data.local.objects.toModel

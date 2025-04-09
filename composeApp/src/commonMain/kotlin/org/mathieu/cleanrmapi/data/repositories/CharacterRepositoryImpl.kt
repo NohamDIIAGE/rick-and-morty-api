@@ -4,9 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.java.KoinJavaComponent.inject
 import org.mathieu.cleanrmapi.common.mapElement
 import org.mathieu.cleanrmapi.common.toList
-import org.mathieu.cleanrmapi.data.local.CharacterDAO
+import org.mathieu.cleanrmapi.data.local.dao.CharacterDAO
 import org.mathieu.cleanrmapi.data.local.DataStore
 import org.mathieu.cleanrmapi.data.local.objects.CharacterObject
 import org.mathieu.cleanrmapi.data.local.objects.toDBObject
@@ -20,6 +21,7 @@ import org.mathieu.cleanrmapi.domain.character.CharacterRepository
 import org.mathieu.cleanrmapi.domain.character.models.Character
 import org.mathieu.cleanrmapi.domain.character.models.CharacterDetails
 import org.mathieu.cleanrmapi.domain.episode.models.Episode
+import org.mathieu.cleanrmapi.domain.location.LocationRepository
 
 
 private const val CHARACTER_PREFS = "character_repository_preferences"
@@ -29,7 +31,9 @@ internal class CharacterRepositoryImpl(
     private val dataStore: DataStore,
     private val episodeApi: EpisodeApi,
     private val characterApi: CharacterApi,
-    private val characterDAO: CharacterDAO
+    private val characterDAO: CharacterDAO,
+    private val locationRepository: LocationRepository
+
 ) : CharacterRepository {
 
     override suspend fun getCharacters(): Flow<List<Character>> =
@@ -92,7 +96,8 @@ internal class CharacterRepositoryImpl(
         val characterLocal = GetCharacterObjectIfExists(characterId = id)
 
         return characterLocal.toDetailedModel(
-            idsToEpisodesConverter = ::getEpisodesFromIdList
+            idsToEpisodesConverter = ::getEpisodesFromIdList,
+            locationRepository = locationRepository
         )
 
     }

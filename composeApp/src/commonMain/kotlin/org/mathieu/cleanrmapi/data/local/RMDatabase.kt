@@ -7,15 +7,20 @@ import androidx.room.RoomDatabaseConstructor
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import org.mathieu.cleanrmapi.data.local.dao.CharacterDAO
+import org.mathieu.cleanrmapi.data.local.dao.EpisodeDAO
+import org.mathieu.cleanrmapi.data.local.dao.LocationDAO
 import org.mathieu.cleanrmapi.data.local.objects.CharacterObject
 import org.mathieu.cleanrmapi.data.local.objects.EpisodeObject
+import org.mathieu.cleanrmapi.data.local.objects.LocationObject
 
 @Database(
     entities = [
         CharacterObject::class,
-        EpisodeObject::class
+        EpisodeObject::class,
+        LocationObject::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 
@@ -24,10 +29,12 @@ abstract class RMDatabase: RoomDatabase() {
 
     abstract fun characterDAO(): CharacterDAO
     abstract fun episodeDAO(): EpisodeDAO
+    abstract fun locationDAO(): LocationDAO
 
     companion object {
         const val CHARACTER_TABLE = "character_table"
         const val EPISODE_TABLE = "episode_table"
+        const val LOCATION_TABLE = "location_table"
     }
 
 }
@@ -42,7 +49,7 @@ fun getRoomDatabase(
     builder: RoomDatabase.Builder<RMDatabase>
 ): RMDatabase = builder
     .addMigrations()
-    .fallbackToDestructiveMigrationOnDowngrade(true)
+    .fallbackToDestructiveMigration(true)
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
     .build()
