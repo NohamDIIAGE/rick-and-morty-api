@@ -45,7 +45,7 @@ val repositoriesModule = module {
 
     single<EpisodeRepository> { EpisodeRepositoryImpl(get()) }
 
-    single<LocationRepository> { LocationRepositoryImpl(get()) }
+    single<LocationRepository> { LocationRepositoryImpl(get(), get()) }
 
 }
 
